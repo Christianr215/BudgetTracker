@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+
+  <div class="row">
+    <!-- Savings Graph (Line Chart) -->
+    <div class="col-xl-8 col-lg-7">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">Savings Over Time</h6>
+        </div>
+        <div class="card-body">
+          <div class="chart-area">
+            <canvas id="savingsChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expenses Pie Chart -->
+    <div class="col-xl-4 col-lg-5">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">Expenses Breakdown</h6>
+        </div>
+        <div class="card-body">
+          <div class="chart-pie pt-4 pb-2">
+            <canvas id="expensesChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logs Section -->
+  <div class="row">
+    <!-- Savings Log Form -->
+    <div class="col-lg-6">
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          <h6 class="m-0 font-weight-bold text-success">Log Savings</h6>
+        </div>
+        <div class="card-body">
+          <form method="POST" action="{{ url_for('index') }}">
+            {{ savings_form.hidden_tag() }}
+            <div class="form-group">
+              {{ savings_form.amount.label }}
+              {{ savings_form.amount(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-success">Add Savings</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expenses Log Form -->
+    <div class="col-lg-6">
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          <h6 class="m-0 font-weight-bold text-danger">Log Expense</h6>
+        </div>
+        <div class="card-body">
+          <form method="POST" action="{{ url_for('index') }}">
+            {{ expense_form.hidden_tag() }}
+            <div class="form-group">
+                {{ expense_form.utilities.label }}
+                {{ expense_form.utilities(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ expense_form.food.label }}
+                {{ expense_form.food(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ expense_form.Miscellaneous.label }}
+                {{ expense_form.Miscellaneous(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-danger">{{ expense_form.submit.label.text }}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock %}
